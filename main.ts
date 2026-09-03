@@ -3,7 +3,6 @@ import { Jogo } from "./src/jogos/jogo.ts";
 import { Review } from "./src/jogos/review.ts";
 import { Plataforma } from "./src/jogos/plataforma.ts";
 const teclado = prompt();
-var i;
 const consoles: Plataforma[] = [];
 
 function addConsole() {
@@ -34,11 +33,15 @@ function addJogo (){
 }
 
 function listaGeral () {
-    console.log("Lista de Consoles e Jogos");
-    for (const plat of consoles){
-        console.log(">>", plat.nome);
-        for (const j of plat.jogos){
-            console.log("   - ", j.nome);
+    if (consoles.length <= 0){
+        console.log("Sua Lista está vazia!");
+    } else{
+        console.log("Lista de Consoles e Jogos");
+        for (const plat of consoles){
+            console.log(">>", plat.nome);
+            for (const j of plat.jogos){
+                console.log("   - ", j.nome);
+            }
         }
     }
 }
@@ -66,15 +69,16 @@ function reviewGame () {
 // MENU PRINCIPAL
 let onMenu = true
 while(onMenu){
+    console.log("  ")
     console.log("------------------------------------")
     console.log("|Biblioteca de jogos dos Batutinhas|")
     console.log("------------------------------------")
-    console.log("  ")
     console.log("1 - Ver tudo que tenho")
     console.log("2 - Fazer Review de um Jogo")
     console.log("3 - Adicionar console")
     console.log("4 - Adicionar Jogo")
     console.log("0 - Sair")
+    console.log("  ")
     const opcao = +(teclado("O que você gostaria de fazer agora? "))
     switch (opcao){
         case 1:
@@ -98,9 +102,4 @@ while(onMenu){
             break;
     }
 }
-
-
-
-//console.log(consoles);
-//console.dir(consoles, { depth: null});
 
