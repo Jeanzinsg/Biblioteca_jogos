@@ -48,7 +48,7 @@ npm install
 3. Execute o projeto:
 
 ```bash
-node main.ts
+npm start
 ```
 
 ## Integrantes
