@@ -1,0 +1,36 @@
+[
+  {
+    "tipo": "digital",
+    "id": "cc1dcd92-d6a6-4086-8f0a-6ab497c6a7bf",
+    "nome": "Elden Ring",
+    "plataforma": "PC",
+    "lojaOrigem": "Steam",
+    "genero": "Souls",
+    "dataLancamento": "2023-10-10",
+    "valorPago": 100,
+    "duracaoEstimadaHoras": 100,
+    "status": "Zerado",
+    "progresso": {
+      "horasJogadas": 68,
+      "percentualConclusao": 75,
+      "dataInicio": "2025-10-10",
+      "dataTermino": "2025-11-26"
+    },
+    "reviews": [
+      {
+        "id": "941e1a28-7b85-46c3-b81d-cbd1ff41e9b1",
+        "data": "2026-09-30",
+        "texto": "Melhor souls disparado",
+        "contemSpoiler": false,
+        "notas": {
+          "jogabilidade": 10,
+          "historia": 8,
+          "trilhaSonora": 10,
+          "graficos": 10
+        }
+      }
+    ],
+    "espacoGB": 128,
+    "launcher": "Steam"
+  }
+]
