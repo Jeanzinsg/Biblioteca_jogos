@@ -1,1 +1,8 @@
-node_modules
+node_modules/
+dist/
+
+# chave da API: nunca subir
+.env
+
+# perfis baixados da Steam
+cache/
