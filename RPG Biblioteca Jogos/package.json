@@ -18,9 +18,13 @@
     "@babel/preset-typescript": "^8.0.1",
     "@jest/globals": "^30.5.1",
     "@types/node": "^26.6.3",
+    "@types/prompt-sync": "^4.2.3",
     "babel-jest": "^30.5.1",
     "jest": "^30.5.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
   }
 }
