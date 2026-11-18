@@ -1,112 +1,90 @@
-# Steam RPG
+# Steam RPG: A Revolta do Backlog
 
-Você informa um perfil da Steam e o sistema transforma a biblioteca de jogos em um personagem de RPG:
-classe, nível, atributos, relíquias, títulos e até uma maldição. Depois dá para batalhar contra o personagem de um amigo.
+Todo mundo que usa a Steam tem aquela pilha de jogos comprados na promoção e nunca abertos: o **backlog**.
+Neste jogo, ele criou vida e virou um chefe.
 
-Projeto de Programação Orientada a Objetos (Senac), em TypeScript, com interface de terminal.
+- As **horas que você jogou** viram o seu herói (classe, nível, atributos e arma).
+- Os **jogos que você nunca abriu** viram o **Chefe do Backlog**, que joga esses jogos em você.
+- Se o seu backlog for grande demais, **chame amigos**: cada perfil da Steam vira mais um herói no grupo.
+
+Projeto autoral de Programação Orientada a Objetos (Senac), em TypeScript, com interface de terminal.
 
 ## Como rodar
 
 ```bash
 npm install
-cp .env.example .env   # e cole a sua chave em STEAM_API_KEY
 npm start
 ```
 
-- Sem chave no `.env`, o programa roda em **modo de teste** com dois perfis falsos.
-- Com chave, ele busca na Steam de verdade. Você pode digitar o Steam ID (17 números), o link do perfil
-  (`https://steamcommunity.com/profiles/...` ou `https://steamcommunity.com/id/...`) ou só o nome da URL personalizada.
-- O perfil e os **detalhes de jogos** precisam estar públicos na Steam. Para listar amigos, a lista de amigos também.
+Sem chave, o jogo roda em **modo de teste** com 4 perfis prontos: `guerreiro`, `mago`, `ladino` e `colecionador`.
+Dica: escolha `colecionador` (12 jogos parados) e tente vencer sozinho. Depois chame os outros três.
 
-A chave é gerada em https://steamcommunity.com/dev/apikey. O `.env` nunca vai para o Git.
+Para usar a Steam de verdade:
 
-Outros comandos:
+1. Gere uma chave em https://steamcommunity.com/dev/apikey
+2. Copie `.env.example` para `.env` e cole a chave em `STEAM_API_KEY`
+3. Use o Steam ID de 17 números (aparece no link do perfil ou em https://steamid.io)
+4. O perfil e os **detalhes de jogos** precisam estar públicos nas configurações de privacidade da Steam
 
-- `npm test`: roda os testes
-- `npm run typecheck`: confere os tipos
+Outros comandos: `npm test` (testes) e `npm run typecheck` (confere os tipos).
 
-## Regras do jogo
+## Regras
 
-**Atributos**: as horas de cada gênero viram pontos com `10 × log2(1 + horas/10)`, até no máximo 100.
-Começa rápido e vai desacelerando: 40h dão 23 pontos, 120h dão 37 e 300h dão 50.
-Um jogo com vários gêneros divide as horas entre eles.
+**Atributos**: cada 5 horas em um gênero vale 1 ponto (máximo 100).
 
-| Atributo | Gêneros |
+| Atributo | Gêneros da Steam |
 |---|---|
-| Força | Action |
-| Agilidade | Racing, Sports |
-| Inteligência | Strategy |
-| Sabedoria | RPG, Simulation, Adventure |
-| Carisma | Massively Multiplayer, Casual, Indie |
-| Sorte | % de todas as conquistas feitas |
+| Força | Action, Adventure |
+| Inteligência | Strategy, Simulation, RPG |
+| Agilidade | Racing, Sports, Casual, Indie |
 
-**Nível**: raiz quadrada das horas totais (mínimo 1).
+**Nível**: 1 a cada 20 horas jogadas (de 1 a 50). **Arma lendária**: o seu jogo mais jogado.
 
-**Classe**: o maior entre Força (Guerreiro), Inteligência (Mago) e Agilidade (Ladino). Se empatar, ganha o Guerreiro.
+**Classe**: o maior atributo decide. Empate fica com o Guerreiro.
 
-**Relíquias**: cada jogo com 100% das conquistas vira uma relíquia que dá +5 no atributo do gênero do jogo.
+| Classe | Vida | Ataque |
+|---|---|---|
+| Guerreiro | 100 + 5 × nível + Força | 10 + Força ÷ 2 |
+| Mago | 100 + 5 × nível − 20 | 15 + Inteligência × 0,6 |
+| Ladino | 100 + 5 × nível | 6 + Agilidade ÷ 3, duas vezes |
 
-**Títulos**: cada conquista rara (menos de 5% dos jogadores) vira um título.
+**Chefe do Backlog**: 100 + 60 de vida por jogo nunca aberto. A cada rodada ele arremessa um desses jogos
+em um herói, e o dano cresce 3 a cada rodada (o backlog só aumenta!). Quem não tem nenhum jogo parado não tem chefe.
 
-**Maldição do Backlog**: quem tem 10 ou mais jogos nunca abertos perde 1 de Sorte a cada 5 desses jogos.
-
-**Batalha**: quem tem mais Agilidade começa e os dois se alternam até um cair.
-
-- Vida = 100 + 5 × nível + Força
-- Esquiva = Agilidade / 300 (máx. 30%)
-- Resistência = Sabedoria / 200 (máx. 50% de redução de dano)
-- Crítico = Sorte / 200 (máx. 50%, dano em dobro)
-
-| Classe | Ataque | Dano | Especial |
-|---|---|---|---|
-| Guerreiro | Golpe de Espada | 10 + Força × 0,5 | mais vida (Força entra na vida) |
-| Mago | Bola de Fogo | 8 + Inteligência × 0,5 | nunca é esquivada |
-| Ladino | Ataque Duplo | 5 + Agilidade × 0,35 | ataca duas vezes |
-
-Os perfis da Steam só detalham (gêneros e conquistas) os 25 jogos mais jogados, para não estourar o limite da API.
+**Rodada**: todos os heróis vivos atacam, depois o chefe ataca um herói. Acaba quando o chefe ou o grupo inteiro cai.
 
 ## Estrutura
 
 ```
 src/
-  contratos.ts            tipos compartilhados (interfaces de dados)
-  main.ts                 o menu: lê o que o usuário digita e mostra o resultado
-  cli/Tela.ts             monta os textos das telas
-  dominio/
-    Biblioteca.ts         responde perguntas sobre os jogos (horas, gêneros, conquistas)
-    Personagem.ts         classe abstrata: vida, atributos, efeitos, títulos, golpes
+  main.ts                 menu: lê o que o usuário digita e mostra o resultado
+  contratos.ts            interfaces (JogoSteam, PerfilSteam, Atributos, Combatente, FonteDePerfis)
+  Biblioteca.ts           perguntas sobre os jogos: horas, gêneros, mais jogado, nunca jogados
+  Gerador.ts              transforma um perfil em herói e em chefe
+  Batalha.ts              as rodadas do grupo contra o chefe
+  personagens/
+    Personagem.ts         classe abstrata dos heróis
     Guerreiro.ts Mago.ts Ladino.ts
-    Efeito.ts             classe abstrata de tudo que mexe nos atributos
-    Reliquia.ts MaldicaoDoBacklog.ts
-    Titulo.ts
-    atributos.ts          nomes e rótulos dos atributos
-  regras/
-    GeradorDePersonagem.ts  o balanceamento: biblioteca -> personagem
-    Batalha.ts              turnos até alguém cair
+    ChefeDoBacklog.ts     o chefe (não é Personagem, mas é Combatente)
   steam/
-    FonteDePerfis.ts      interface: "me dá um perfil e os amigos dele"
-    FonteFalsa.ts         usa os perfis falsos
-    SteamService.ts       usa a API real da Steam
-    erros.ts              erros próprios (perfil privado, não encontrado, chave inválida)
-  dados-falsos/           perfis de teste
+    FonteFalsa.ts         perfis de teste (perfisFalsos.ts)
+    SteamService.ts       API real da Steam
 ```
 
 ## Onde está cada conceito de POO
 
 | Conceito | Onde olhar |
 |---|---|
-| Classe, construtor, `this` | `Biblioteca`, `Titulo` |
-| Parâmetro e retorno | `Biblioteca.horasPorGenero`, `GeradorDePersonagem.calcular` |
-| Método void (muda o estado) | `Personagem.adicionarEfeito`, `restaurarVida` |
-| Encapsulamento (`private`, `get`, validação) | `Personagem` (construtor, `receberDano`, getters que devolvem cópias) |
-| `readonly` e `static` | constantes de `Personagem`, `MaldicaoDoBacklog.seAplica` |
-| Herança, `extends`, `super` | `Reliquia` e `MaldicaoDoBacklog` herdam de `Efeito`; os erros herdam de `Error` |
-| `protected` | `Personagem.golpear` e `Personagem.resultado`, usados pelas subclasses |
-| Classe e método abstratos | `Personagem.atacar`, `Efeito.aplicar` |
-| Polimorfismo | `Batalha.lutar` chama `atacante.atacar(...)` sem saber a classe |
-| `instanceof` | `Personagem.reliquias`, `Tela.erro`, `main.ts` |
-| Interface e `implements` | `FonteDePerfis` com `FonteFalsa` e `SteamService` |
-| Associação ("tem um") | `Personagem` tem efeitos e títulos |
-| Generics | `SteamService.getJson<T>` |
-| `try/catch` e `throw` | `main.ts` (o programa nunca cai), validações nas classes |
+| Classe, objeto, construtor | `Biblioteca`, `Gerador` |
+| Encapsulamento (`private`, `get`) | `Personagem` (`_vida` só muda por `receberDano`) |
+| `static` e `readonly` | `Gerador.pontos`, `ChefeDoBacklog.VIDA_POR_JOGO`, `Batalha.TAMANHO_MAXIMO_DO_GRUPO` |
+| Herança, `extends`, `super` | `Guerreiro`, `Mago` e `Ladino` herdam de `Personagem`; `super.vidaMaxima()` |
+| `protected` | `Personagem.atributos`, usado pelas subclasses |
+| Sobrescrita (`override`) | `vidaMaxima()` no `Guerreiro` e no `Mago` |
+| Classe e método abstratos (Quest 1) | `Personagem` e os métodos `classe()`, `habilidade()`, `atacar()` |
+| Polimorfismo com array da superclasse (Quest 2) | `main.ts` (`mostrarGrupo`) e `Batalha.jogarRodada` percorrem um `Personagem[]` |
+| Interface e `implements` | `Combatente` (heróis e chefe), `FonteDePerfis` (`FonteFalsa` e `SteamService`) |
+| `instanceof` | `main.ts` (`fonte instanceof FonteFalsa`, `erro instanceof Error`) |
+| `throw` e `try/catch` (Quest 3) | validações nas classes; `main.ts` mostra o erro e o menu continua |
+| `async/await` | `FonteDePerfis.buscarPerfil`, `SteamService` |
 | Testes (Jest, padrão AAA) | arquivos `*.test.ts` |

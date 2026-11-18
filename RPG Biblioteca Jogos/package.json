@@ -1,7 +1,7 @@
 {
   "name": "steam-rpg",
   "version": "1.0.0",
-  "description": "Gera uma ficha de RPG a partir da biblioteca Steam",
+  "description": "Sua biblioteca Steam vira um grupo de heróis contra o Chefe do Backlog",
   "main": "src/main.ts",
   "scripts": {
     "start": "tsx --env-file-if-exists=.env src/main.ts",
