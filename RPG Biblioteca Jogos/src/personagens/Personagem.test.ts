@@ -46,7 +46,7 @@ describe("Personagem", () => {
 
 describe("ChefeDoBacklog", () => {
   test("não existe sem jogos parados", () => {
-    expect(() => new ChefeDoBacklog("Zerador", [])).toThrow("Sem backlog");
+    expect(() => new ChefeDoBacklog("Zerador", [])).toThrow("Nenhum jogo pegando pó");
   });
 
   test("fica mais forte a cada ataque", () => {

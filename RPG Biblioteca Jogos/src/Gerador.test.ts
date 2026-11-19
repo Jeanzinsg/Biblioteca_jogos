@@ -45,6 +45,6 @@ describe("Gerador", () => {
   test("o chefe nasce dos jogos nunca jogados", () => {
     const chefe = gerador.criarChefe(perfil(["Action"], 100));
     expect(chefe.tamanho).toBe(1);
-    expect(chefe.nome).toBe("Backlog de Teste");
+    expect(chefe.nome).toBe("Acumulador de Poeira de Teste");
   });
 });

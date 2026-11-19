@@ -11,13 +11,13 @@ export class ChefeDoBacklog implements Combatente {
     private readonly _jogosParados: string[],
   ) {
     if (_jogosParados.length === 0) {
-      throw new Error(`${_dono} jogou tudo o que comprou. Sem backlog, sem chefe!`);
+      throw new Error(`${_dono} jogou tudo o que comprou. Nenhum jogo pegando pó, nenhum chefe!`);
     }
     this._vida = 100 + _jogosParados.length * ChefeDoBacklog.VIDA_POR_JOGO;
   }
 
   get nome(): string {
-    return `Backlog de ${this._dono}`;
+    return `Acumulador de Poeira de ${this._dono}`;
   }
 
   get vida(): number {
@@ -37,7 +37,7 @@ export class ChefeDoBacklog implements Combatente {
       throw new Error("O dano não pode ser negativo.");
     }
     if (!this.estaVivo()) {
-      throw new Error("O backlog já foi zerado.");
+      throw new Error("Essa poeira já foi limpa.");
     }
     this._vida = Math.max(0, this._vida - dano);
   }

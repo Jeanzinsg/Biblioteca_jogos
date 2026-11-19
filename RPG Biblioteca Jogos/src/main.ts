@@ -43,7 +43,7 @@ async function escolherMeuPerfil(): Promise<void> {
   grupo = [perfil];
   const chefe = gerador.criarChefe(perfil);
   mostrarGrupo();
-  console.log(`\nO seu backlog acordou: ${chefe.tamanho} jogos nunca abertos, ${chefe.vida} de vida.`);
+  console.log(`\nA poeira acordou: ${chefe.tamanho} jogos parados na prateleira viraram um monstro com ${chefe.vida} de vida.`);
 }
 
 async function chamarAmigo(): Promise<void> {
@@ -69,7 +69,7 @@ function enfrentarChefe(): void {
   const chefe = gerador.criarChefe(dono);
   const batalha = new Batalha(montarHerois(), chefe);
 
-  console.log(`\n=== ${chefe.nome.toUpperCase()} (${chefe.tamanho} jogos parados) ===`);
+  console.log(`\n=== ${chefe.nome.toUpperCase()} (${chefe.tamanho} jogos pegando pó) ===`);
   while (!batalha.acabou()) {
     for (const linha of batalha.jogarRodada()) {
       console.log(linha);
@@ -79,14 +79,14 @@ function enfrentarChefe(): void {
   }
 
   if (batalha.heroisVenceram()) {
-    console.log("\nBACKLOG ZERADO! Agora vai jogar aqueles jogos de verdade.");
+    console.log("\nPOEIRA LIMPA! Agora vai jogar aqueles jogos de verdade.");
   } else {
-    console.log("\nO backlog venceu... e amanhã tem promoção nova. Chame mais amigos!");
+    console.log("\nA poeira venceu... e amanhã tem promoção nova. Chame mais amigos!");
   }
 }
 
 console.log("=========================================");
-console.log("  STEAM RPG: A REVOLTA DO BACKLOG");
+console.log("  STEAM RPG: BIBLIOTECA FIGHT");
 console.log("=========================================");
 console.log("Os jogos que você comprou e nunca abriu viraram um monstro.");
 console.log("As horas que você jogou viraram o seu herói. Chame amigos e lute!");
@@ -99,7 +99,7 @@ while (opcao !== "0") {
   console.log("\n1. Escolher meu perfil");
   console.log("2. Chamar um amigo para o grupo");
   console.log("3. Ver o grupo");
-  console.log("4. Enfrentar o Chefe do Backlog");
+  console.log("4. Enfrentar o Acumulador de Poeira");
   console.log("0. Sair");
   opcao = prompt("Opção: ") ?? "0";
 

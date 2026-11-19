@@ -1,11 +1,11 @@
-# Steam RPG: A Revolta do Backlog
+# Steam RPG: Biblioteca Fight
 
 Todo mundo que usa a Steam tem aquela pilha de jogos comprados na promoção e nunca abertos: o **backlog**.
 Neste jogo, ele criou vida e virou um chefe.
 
 - As **horas que você jogou** viram o seu herói (classe, nível, atributos e arma).
-- Os **jogos que você nunca abriu** viram o **Chefe do Backlog**, que joga esses jogos em você.
-- Se o seu backlog for grande demais, **chame amigos**: cada perfil da Steam vira mais um herói no grupo.
+- Os **jogos que você nunca abriu** viram o **Acumulador de Poeira**, um chefe que arremessa esses jogos em você.
+- Se a pilha de jogos pegando pó for grande demais, **chame amigos**: cada perfil da Steam vira mais um herói no grupo.
 
 Projeto autoral de Programação Orientada a Objetos (Senac), em TypeScript, com interface de terminal.
 
@@ -48,8 +48,8 @@ Outros comandos: `npm test` (testes) e `npm run typecheck` (confere os tipos).
 | Mago | 100 + 5 × nível − 20 | 15 + Inteligência × 0,6 |
 | Ladino | 100 + 5 × nível | 6 + Agilidade ÷ 3, duas vezes |
 
-**Chefe do Backlog**: 100 + 60 de vida por jogo nunca aberto. A cada rodada ele arremessa um desses jogos
-em um herói, e o dano cresce 3 a cada rodada (o backlog só aumenta!). Quem não tem nenhum jogo parado não tem chefe.
+**Acumulador de Poeira** (o chefe): 100 + 60 de vida por jogo nunca aberto. A cada rodada ele arremessa um desses jogos
+em um herói, e o dano cresce 3 a cada rodada (a poeira só aumenta!). Quem não tem nenhum jogo pegando pó não tem chefe.
 
 **Rodada**: todos os heróis vivos atacam, depois o chefe ataca um herói. Acaba quando o chefe ou o grupo inteiro cai.
 

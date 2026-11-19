@@ -1,7 +1,7 @@
 {
   "name": "steam-rpg",
   "version": "1.0.0",
-  "description": "Sua biblioteca Steam vira um grupo de heróis contra o Chefe do Backlog",
+  "description": "Sua biblioteca Steam vira um grupo de heróis contra o Acumulador de Poeira",
   "main": "src/main.ts",
   "scripts": {
     "start": "tsx --env-file-if-exists=.env src/main.ts",
